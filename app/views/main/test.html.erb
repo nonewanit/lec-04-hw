@@ -1,0 +1,38 @@
+<%= form_with url: "/main/test", method:"post", data: {turbo:false} do |form| %>
+	<table>
+		<tr>
+			<th></th>
+			<th>subject</th>
+			<th>score</th>
+		</tr>
+		<% if @subjectlist&&@scorelist %>
+			<% @subno.to_i.times do |i| %>
+				<tr>
+					<td><%= i+1 %></td>
+					<td><%= form.text_field :"subject#{i}", value:"#{@subjectlist[i]}"%></td>
+					<td><%= form.text_field :"score#{i}", value:"#{@scorelist[i]}" %></td>
+				</tr>
+			<% end %>
+		<% else %>
+			<% @subno.to_i.times do |i| %>
+				<tr> 
+					<td><%= i+1 %></td>
+					<td><%= form.text_field :"subject#{i}" %></td>
+					<td><%= form.text_field :"score#{i}" %></td>
+				</tr>
+			<% end %>
+		<% end %>	
+	</table>
+	<% if @subjectlist&&@scorelist %>
+		<% @subno.to_i.times do |i| %>
+			<% if @subjectlist[i]=='' %>
+				<%= form.label :"Please enter subject #{i+1}"%>
+			<% end %>
+			<% if @scorelist[i]=='' %>
+				<%= form.label :"Please enter score #{i+1}" %>
+			<% end %>
+			<br>	
+		<% end %>
+	<% end %>
+	<%= form.submit "Submit" %>	
+<% end %>
